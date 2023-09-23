@@ -3,9 +3,7 @@ import cv2
 from PIL import Image
 import numpy as np
 
-
 current_dir = os.getcwd()
-
 
 category_mapping = {
     "CK20.01.01.01.406": 0,
@@ -29,25 +27,20 @@ category_mapping = {
     "ZVT86.103K-02": 18,
 }
 
-
 data = []
 labels = []
 
-
 for category, label in category_mapping.items():
-    category_dir = os.path.join(current_dir, "CNN/data", category)
-    
+    category_dir = os.path.join(current_dir, "CNN/data", category)  
     
     if not os.path.exists(category_dir):
         print(f"Directory {category_dir} does not exist.")
         continue
-
    
     for filename in os.listdir(category_dir):
         try:
             image_path = os.path.join(category_dir, filename)
             imag = cv2.imread(image_path)
-
            
             if imag is None:
                 print(f"Failed to load image: {image_path}")
@@ -60,10 +53,7 @@ for category, label in category_mapping.items():
         except Exception as e:
             print(f"Error processing {image_path}: {e}")
 
-
 details = np.array(data)
 labels = np.array(labels)
-
- 
 np.save("details", details)
 np.save("labels", labels)
