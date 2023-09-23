@@ -1,35 +1,25 @@
 import numpy as np
-# 
 import tensorflow as tf
-
 from tensorflow.keras import layers, models
 import matplotlib.pyplot as plt
-# 
 
 details=np.load("details.npy")
 labels=np.load("labels.npy")
-
 s=np.arange(details.shape[0])
 np.random.shuffle(s)
 details=details[s]
 labels=labels[s]
 
-# 
 num_classes=len(np.unique(labels))
 data_length=len(details)
 
-# 
 (x_train,x_test)=details[(int)(0.1*data_length):],details[:(int)(0.1*data_length)]
 x_train = x_train.astype('float32')/255
 x_test = x_test.astype('float32')/255
 train_length=len(x_train)
 test_length=len(x_test)
 
-# 
 (y_train,y_test)=labels[(int)(0.1*data_length):],labels[:(int)(0.1*data_length)]
-
-
-
 
 model = models.Sequential()
 model.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(50, 50, 3)))
@@ -43,7 +33,6 @@ model.summary()
 model.add(layers.Flatten())
 model.add(layers.Dense(128, activation='relu'))
 model.add(layers.Dense(19))
-
 model.summary()
 
 model.compile(optimizer='adam',
